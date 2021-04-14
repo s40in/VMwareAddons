@@ -106,7 +106,7 @@ VMWSharedFolders::OpenFile(const char* path, int open_mode, file_handle* handle)
 	SET_32(pos, path_length);
 	CopyPath(path, &pos);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -122,8 +122,11 @@ VMWSharedFolders::OpenFile(const char* path, int open_mode, file_handle* handle)
 	return ret;
 }
 
+//status_t
+//VMWSharedFolders::ReadFile(file_handle handle, uint64 offset, void* read_buffer, uint32* read_length)
+
 status_t
-VMWSharedFolders::ReadFile(file_handle handle, uint64 offset, void* read_buffer, uint32* read_length)
+VMWSharedFolders::ReadFile(file_handle handle, uint64 offset, void* read_buffer, size_t* read_length) //HAKILO
 {
 	// Command string :
 	// 0) Magic value (6 bytes, in BuildCommand)
@@ -142,7 +145,7 @@ VMWSharedFolders::ReadFile(file_handle handle, uint64 offset, void* read_buffer,
 	SET_64(pos, offset);
 	SET_32(pos, *read_length);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -164,8 +167,10 @@ VMWSharedFolders::ReadFile(file_handle handle, uint64 offset, void* read_buffer,
 	return ret;
 }
 
+//status_t
+//VMWSharedFolders::WriteFile(file_handle handle, uint64 offset, const void* write_buffer, uint32* write_length)
 status_t
-VMWSharedFolders::WriteFile(file_handle handle, uint64 offset, const void* write_buffer, uint32* write_length)
+VMWSharedFolders::WriteFile(file_handle handle, uint64 offset, const void* write_buffer, size_t* write_length) //HAKILO
 {
 	// Command string :
 	// 0) Magic value (6 bytes, in BuildCommand)
@@ -189,7 +194,7 @@ VMWSharedFolders::WriteFile(file_handle handle, uint64 offset, const void* write
 	memcpy(rpc_buffer + pos, write_buffer, *write_length);
 	pos += *write_length;
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -219,7 +224,7 @@ VMWSharedFolders::CloseFile(file_handle handle)
 	SET_32(pos, VMW_CMD_CLOSE_FILE);
 	SET_32(pos, handle);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -243,7 +248,7 @@ VMWSharedFolders::OpenDir(const char* path, folder_handle* handle)
 	SET_32(pos, path_length);
 	CopyPath(path, &pos);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -275,7 +280,7 @@ VMWSharedFolders::ReadDir(folder_handle handle, uint32 index, char* name, size_t
 	SET_32(pos, handle);
 	SET_32(pos, index);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -312,7 +317,7 @@ VMWSharedFolders::CloseDir(folder_handle handle)
 	SET_32(pos, VMW_CMD_CLOSE_DIR);
 	SET_32(pos, handle);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	return backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 }
@@ -334,7 +339,7 @@ VMWSharedFolders::GetAttributes(const char* path, vmw_attributes* attributes, bo
 	SET_32(pos, path_length);
 	CopyPath(path, &pos);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -385,7 +390,7 @@ VMWSharedFolders::SetAttributes(const char* path, const vmw_attributes* attribut
 	SET_32(pos, path_length);
 	CopyPath(path, &pos);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -421,7 +426,7 @@ VMWSharedFolders::CreateDir(const char* path, uint8 mode)
 	SET_32(pos, path_length);
 	CopyPath(path, &pos);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -453,7 +458,7 @@ VMWSharedFolders::Delete(const char* path, bool is_dir)
 	SET_32(pos, path_length);
 	CopyPath(path, &pos);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 
@@ -504,7 +509,7 @@ VMWSharedFolders::Move(const char* path_orig, const char* path_dest)
 	SET_32(pos, path_dest_length);
 	CopyPath(path_dest, &pos);
 
-	ASSERT(pos == length);
+	ASSERT((size_t)pos == length); //HAKILO
 
 	status_t ret = backdoor.SendAndGet(rpc_buffer, &length, rpc_buffer_size);
 

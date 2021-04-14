@@ -14,6 +14,7 @@ run_backdoor: main.o VMWBackdoor.o
 
 clean:
 	rm -rf *.o
+	rm -f run_backdoor
 
 mrproper: clean
 	rm -f run_backdoor

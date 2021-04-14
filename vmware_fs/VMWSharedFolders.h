@@ -46,8 +46,10 @@ public:
 
 	status_t		InitCheck() const { return init_check; }
 	status_t		OpenFile(const char* path, int open_mode, file_handle* handle);
-	status_t		ReadFile(file_handle handle, uint64 offset, void* read_buffer, uint32* read_length);
-	status_t		WriteFile(file_handle handle, uint64 offset, const void* write_buffer, uint32* write_length);
+	//status_t		ReadFile(file_handle handle, uint64 offset, void* read_buffer, uint32* read_length);
+	status_t		ReadFile(file_handle handle, uint64 offset, void* read_buffer, size_t* read_length); //HAKILO
+	//status_t		WriteFile(file_handle handle, uint64 offset, const void* write_buffer, uint32* write_length);
+	status_t		WriteFile(file_handle handle, uint64 offset, const void* write_buffer, size_t* write_length); //HAKILO
 	status_t		CloseFile(file_handle handle);
 	status_t		OpenDir(const char* path, folder_handle* handle);
 	status_t		ReadDir(folder_handle handle, uint32 index, char* name, size_t max_length);
