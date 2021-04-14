@@ -1,0 +1,22 @@
+SubDir HAIKU_TOP src add-ons kernel file_systems vmwfs ;
+
+#UsePrivateHeaders [ FDirName kernel disk_device_manager ] ;
+UsePrivateHeaders [ FDirName kernel util ] ;
+UsePrivateHeaders shared storage ;
+UsePrivateHeaders file_systems ;
+UsePrivateKernelHeaders ;
+
+KernelAddon vmwfs :
+	dir_operations.cpp
+	file_operations.cpp
+	kernel_interface.cpp
+	VMWNode.cpp
+	VMWSharedFolders.cpp
+	vnode_operations.cpp
+	volume_operations.cpp
+	VMWCoreBackdoor.cpp
+
+;
+
+SEARCH on [ FGristFiles DeviceOpener.cpp ]
+	= [ FDirName  $(HAIKU_TOP) src add-ons kernel file_systems shared ] ;
