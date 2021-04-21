@@ -1,0 +1,35 @@
+/* 
+ * Created by HAKILO Project 
+ * s40in <s40in@hakilo.ru  
+ */
+ 
+
+#ifndef _SVGA_REG_CAP_H_
+#define _SVGA_REG_CAP_H_
+
+
+/*
+ *  Capabilities
+ */
+
+#define SVGA_CAP_NONE   			0x00000
+#define SVGA_CAP_RECT_FILL  		0x00001
+#define SVGA_CAP_RECT_COPY  		0x00002
+#define SVGA_CAP_RECT_PAT_FILL  	0x00004
+#define SVGA_CAP_LEGACY_OFFSCREEN   0x00008
+#define SVGA_CAP_RASTER_OP  		0x00010
+#define SVGA_CAP_CURSOR 			0x00020
+#define SVGA_CAP_CURSOR_BYPASS  	0x00040
+#define SVGA_CAP_CURSOR_BYPASS_2	0x00080
+#define SVGA_CAP_8BIT_EMULATION 	0x00100
+#define SVGA_CAP_ALPHA_CURSOR   	0x00200
+#define SVGA_CAP_GLYPH  			0x00400
+#define SVGA_CAP_GLYPH_CLIPPING 	0x00800
+#define SVGA_CAP_OFFSCREEN_1		0x01000
+#define SVGA_CAP_ALPHA_BLEND		0x02000
+#define SVGA_CAP_3D 				0x04000
+#define SVGA_CAP_EXTENDED_FIFO  	0x08000
+#define SVGA_CAP_MULTIMON   		0x10000
+#define SVGA_CAP_PITCHLOCK  		0x20000
+
+#endif

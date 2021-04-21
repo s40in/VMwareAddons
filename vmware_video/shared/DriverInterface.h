@@ -18,8 +18,13 @@
 #include <PCI.h>
 #include <OS.h>
 
-#include "vm_device_version.h"
 #include "svga_reg.h"
+#include "svga_reg_cap.h"
+
+#include "svga_escape.h"
+#include "svga_overlay.h"
+#include "svga3d_reg.h"
+#include "svga3d_shaderdefs.h"
 
 #define MAX_SAMPLE_DEVICE_NAME_LENGTH	32
 #define CURSOR_ID						1
