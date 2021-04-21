@@ -10,6 +10,7 @@
 
 #include "driver.h"
 
+
 #include <KernelExport.h>
 #include <PCI.h>
 #include <OS.h>
@@ -19,6 +20,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define DEBUG_COMMANDS
+#include "debug_cmd.h"
 
 #define get_pci(o, s) (*gPciBus->read_pci_config)(pcii->bus, pcii->device, pcii->function, (o), (s))
 #define set_pci(o, s, v) (*gPciBus->write_pci_config)(pcii->bus, pcii->device, pcii->function, (o), (s), (v))
@@ -212,6 +215,12 @@ freeShared:
 	FreeShared();
 
 done:
+#ifdef DEBUG_COMMANDS
+			add_debugger_command("ie_reg", debug_getset_register,
+				"dumps or sets the specified vmsvga register");
+			add_debugger_command("setvideomode", debug_set_videomode,
+				"set vmsvga video mode");
+#endif
 	RELEASE_BEN(gPd->kernel);
 	TRACE("OpenHook: %" B_PRId32 "\n", ret);
 	return ret;
@@ -236,6 +245,10 @@ WriteHook(void *dev, off_t pos, const void *buf, size_t *len)
 static status_t
 CloseHook(void *dev)
 {
+#ifdef DEBUG_COMMANDS
+		remove_debugger_command("ie_reg", debug_getset_register);
+		remove_debugger_command("setvideomode", debug_set_videomode);
+#endif
 	return B_OK;
 }
 
@@ -310,6 +323,7 @@ ControlHook(void *dev, uint32 msg, void *buf, size_t len)
 			WriteReg(SVGA_REG_WIDTH, dm->virtual_width);
 			WriteReg(SVGA_REG_HEIGHT, dm->virtual_height);
 			WriteReg(SVGA_REG_BITS_PER_PIXEL, BppForSpace(dm->space));
+			dprintf("Vmware: BPP = %i \n", BppForSpace(dm->space));
 			WriteReg(SVGA_REG_ENABLE, 1); //HAKILO
 			si->fbOffset = ReadReg(SVGA_REG_FB_OFFSET);
 			si->bytesPerRow = ReadReg(SVGA_REG_BYTES_PER_LINE);
